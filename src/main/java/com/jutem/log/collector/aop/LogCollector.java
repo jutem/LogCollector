@@ -6,12 +6,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 
 import com.jutem.log.collector.combiner.Combiner;
+import com.jutem.log.collector.common.CommonUtil;
 import com.jutem.log.collector.common.TimeMonitor;
 import com.jutem.log.collector.pusher.Pusher;
 
@@ -110,24 +113,26 @@ public class LogCollector {
 	/**
 	 * exception处理
 	 */
-//	@AfterThrowing(value = "execution(com.jutem.log.collector.aop.LogAround)", throwing = "e")
-//    public void exceptionIntercept(JoinPoint point, Throwable e) {
-//       if (point == null) {
-//           logger.error("error:method:exceptionIntercept, the point is null here, please check ! ");
-//           return;
-//       }
-// 
-//       Method method = ((MethodSignature) point.getSignature()).getMethod();
-//       LogAround la = method.getAnnotation(LogAround.class);
-//       
-//       //TODO 补全参数
-//       if(la.excetpionMonitor()) {
-//    	   String log = Combiner.newInstance().cbWeb("test", "127.0.0.1").cbException(method.getName(), e.getMessage(), "test exception").toString();
-//    	   pusher.push(log);
-//       }
-//       
-//       return;
-//    }
+	@AfterThrowing(value = "@annotation(com.jutem.log.collector.aop.LogAround)", throwing = "e")
+    public void exceptionIntercept(JoinPoint point, Throwable e) {
+       if (point == null) {
+           logger.error("error:method:exceptionIntercept, the point is null here, please check ! ");
+           return;
+       }
+ 
+       Method method = ((MethodSignature) point.getSignature()).getMethod();
+       LogAround la = method.getAnnotation(LogAround.class);
+       
+       //TODO 补全参数
+       if(la != null) {
+    	   if(la.exception()) {
+    		   String log = Combiner.newInstance().cbWeb(app, host).cbException(method.getName(), e.getMessage(), CommonUtil.ex2Str(e)).toString();
+    		   pusher.push(log);
+    	   }
+       }
+       
+       return;
+    }
 	
 	
 }

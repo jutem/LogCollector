@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.jutem.log.collector.combiner.Combiner;
 
 /**
- * 参考土豆前辈的代码
+ * 参考土豆同事的代码
  * 统计类
  */
 public class TimeMonitor{

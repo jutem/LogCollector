@@ -3,5 +3,14 @@
 
 .project
 
+target/*
+
 *.prefs
 
+pom.xml
+
+
+
+pom.xml
+
+pom.xml

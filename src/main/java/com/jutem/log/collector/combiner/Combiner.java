@@ -35,7 +35,7 @@ public class Combiner {
 	}
 	
 	public Combiner cbException(String method, String msg, String exception) {
-		return combine(LogType.EXCEPTION).combine(method).combine(exception);
+		return combine(LogType.EXCEPTION).combine(method).combine(msg).combine(exception);
 	}
 
 	public Combiner cbAvgTime(String method, int allNum, int avgTime) {
