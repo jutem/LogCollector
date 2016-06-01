@@ -12,14 +12,15 @@
 配置参考:
 redisPusher的logRedisTemplate依赖spring的org.springframework.data.redis.core.RedisTemplate
 
-<bean id="redisPusher" class="com.jutem.log.collector.pusher.RedisPusher">
-		<constructor-arg ref="logRedisTemplate" />
-		<constructor-arg name="redisKey" value="logstash-elasticsearch" />
+<code><bean id="redisPusher" class="com.jutem.log.collector.pusher.RedisPusher">
+	<constructor-arg ref="logRedisTemplate" />
+	<constructor-arg name="redisKey" value="logstash-elasticsearch" />
 </bean>
 <bean id="logPusher" class="com.jutem.log.collector.pusher.LogPusher"></bean>
 <bean id="logCollector" class="com.jutem.log.collector.aop.LogCollector">
-		<constructor-arg name="app" value="elasticsearch"></constructor-arg>
-		<constructor-arg name="host" value="127.0.0.1"></constructor-arg>
-		<!-- <constructor-arg ref="redisPusher"></constructor-arg> -->
-		<!-- <constructor-arg ref="logPusher"></constructor-arg> -->
-</bean>
+	<constructor-arg name="app" value="elasticsearch"></constructor-arg>
+	<constructor-arg name="host" value="127.0.0.1"></constructor-arg>
+	<!-- <constructor-arg ref="redisPusher"></constructor-arg> -->
+	<!-- <constructor-arg ref="logPusher"></constructor-arg> -->
+</bean></code>
+
