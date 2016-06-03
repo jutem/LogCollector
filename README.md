@@ -24,3 +24,6 @@ redisPusher的logRedisTemplate依赖spring的org.springframework.data.redis.core
 		<!-- <constructor-arg ref="logPusher"></constructor-arg> -->
 	</bean>
 
+logstash相关:
+2016.06.03更新logstash简单的配置文件，需要修改为自己的redis地址和elasticsearch地址。这个配置文件会提交处理好的日志到elasticsearch中
+
