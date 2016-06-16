@@ -1,0 +1,170 @@
+{
+    "template" : "logstash-*",
+    "aliases": {},
+    "mappings": {
+        "_default_": {
+            "_all": {
+                "enabled": false,
+                "norms": {
+                    "enabled": false
+                }
+            },
+            "dynamic_templates": [
+                {
+                    "message_field": {
+                        "mapping": {
+                            "index": "analyzed",
+                            "norms": {
+                                "enabled": false
+                            },
+                            "fielddata": {
+                                "format": "disabled"
+                            },
+                            "type": "string"
+                        },
+                        "match": "message",
+                        "match_mapping_type": "string"
+                    }
+                },
+                {
+                    "string_fields": {
+                        "mapping": {
+                            "index": "analyzed",
+                            "norms": {
+                                "enabled": false
+                            },
+                            "fielddata": {
+                                "format": "disabled"
+                            },
+                            "type": "string",
+                            "fields": {
+                                "raw": {
+                                    "index": "not_analyzed",
+                                    "ignore_above": 256,
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "match": "*",
+                        "match_mapping_type": "string"
+                    }
+                }
+            ],
+            "properties": {
+                "@timestamp": {
+                    "type": "date",
+                    "format": "strict_date_optional_time||epoch_millis"
+                },
+                "@version": {
+                    "type": "string",
+                    "index": "not_analyzed"
+                },
+                "host": {
+		    "type" : "ip"
+                }
+            }
+        },
+        "exception": {
+            "_ttl": {
+                "enabled": true,
+                "default": "60m"
+            },
+            "properties": {
+                "app": {
+                    "type": "string",
+                    "norms": {
+                        "enabled": false
+                    },
+                    "fielddata": {
+                        "format": "disabled"
+                    },
+                    "fields": {
+                        "raw": {
+                            "type": "string",
+                            "index": "not_analyzed",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "exception": {
+                    "type": "string",
+                    "norms": {
+                        "enabled": false
+                    },
+                    "fielddata": {
+                        "format": "disabled"
+                    },
+                    "fields": {
+                        "raw": {
+                            "type": "string",
+                            "index": "not_analyzed",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "logTag": {
+                    "type": "string",
+                    "norms": {
+                        "enabled": false
+                    },
+                    "fielddata": {
+                        "format": "disabled"
+                    },
+                    "fields": {
+                        "raw": {
+                            "type": "string",
+                            "index": "not_analyzed",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "method": {
+                    "type": "string",
+                    "norms": {
+                        "enabled": false
+                    },
+                    "fielddata": {
+                        "format": "disabled"
+                    },
+                    "fields": {
+                        "raw": {
+                            "type": "string",
+                            "index": "not_analyzed",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string",
+                    "norms": {
+                        "enabled": false
+                    },
+                    "fielddata": {
+                        "format": "disabled"
+                    },
+                    "fields": {
+                        "raw": {
+                            "type": "string",
+                            "index": "not_analyzed",
+                            "ignore_above": 256
+                        }
+                    }
+                },
+                "rhost": {
+		    "type": "ip"
+                },
+                "sequence": {
+                    "type": "long"
+                }
+            }
+        }
+    },
+    "settings": {
+        "index": {
+            "number_of_replicas": "1",
+            "number_of_shards": "5",
+            "refresh_interval": "30s"
+        }
+    },
+    "warmers": {}
+}
