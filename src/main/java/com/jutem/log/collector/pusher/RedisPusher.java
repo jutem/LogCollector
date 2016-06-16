@@ -35,7 +35,7 @@ public class RedisPusher implements Pusher{
 		logPool.submit(new Runnable() {
 			@Override
 			public void run() {
-				logger.info("<<<<<<<< push log : " + log); //TODO 改成debug
+				logger.debug("<<<<<<<< push log : " + log); //TODO 改成debug
 				logRedisTemplate.boundListOps(redisKey).rightPush(log);
 			}
 		});
