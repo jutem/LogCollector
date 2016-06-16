@@ -25,5 +25,9 @@
 	</bean>
 
 ### logstash相关:
-	2016.06.03更新logstash简单的配置文件，需要修改为自己的redis地址和elasticsearch地址。这个配置文件会提交处理好的日志到elasticsearch中
+	2016.06.03 更新logstash简单的配置文件，需要修改为自己的redis地址和elasticsearch地址。这个配置文件会提交处理好的日志到elasticsearch中
+	2016.6.15 logstash可以发送elasticsearch模板
+
+### elasticsearch相关:
+	2016.06.15 新增mapping配置
 
